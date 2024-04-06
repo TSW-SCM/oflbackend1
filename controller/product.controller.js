@@ -385,7 +385,7 @@ exports.addingPurchasing = async(req, res, next)=>{
   })
   const purchaseAddedArray = []
   items.forEach(el=>{
-    if(el.purchasingPrice[el.purchasingPrice.length-1].date === date){
+    if(el?.purchasingPrice[el?.purchasingPrice?.length-1]?.date === date){
       purchaseAddedArray.push(el.name)
     }
   })
