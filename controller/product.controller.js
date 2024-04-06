@@ -372,23 +372,29 @@ exports.sendingAllProductsToAdmin = async(req, res, next)=>{
 
 
 exports.addingPurchasing = async(req, res, next)=>{
-  const {name,price} = req.body;
+  const {name,price,date} = req.body;
   const items = await Product.find();
   items.forEach(el=>{
     if(el.name === name){
       el.purchasingPrice.push({
-        price : price
+        price : price,
+        date : date
       })
     }
     el.save()
   })
- 
- 
+  const purchaseAddedArray = []
+  items.forEach(el=>{
+    if(el.purchasingPrice[el.purchasingPrice.length-1].date === date){
+      purchaseAddedArray.push(el.name)
+    }
+  })
 
   res.status(200).json({
     status : 'success',
     data : {
       message : 'purchase added',
+      purchaseAddedArray
     }
   })
 }
