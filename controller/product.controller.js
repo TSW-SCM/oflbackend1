@@ -399,6 +399,43 @@ exports.addingPurchasing = async(req, res, next)=>{
   })
 }
 
+exports.sendingTodayPurchaseItems = async(req, res, next)=>{
+  const {date} = req.body;
+  const items = await Product.find();
+  const purchaseAddedArray = []
+  items.forEach(el=>{
+    if(el?.purchasingPrice[el?.purchasingPrice?.length-1]?.date === date){
+      purchaseAddedArray.push(el.name)
+    }
+  })
+  res.status(200).json({
+    status : 'success',
+    data : {
+      purchaseAddedArray
+    }
+  })
+}
+
+exports.detetingAddedPurchase = async(req, res, next)=>{
+  const {name,date} = req.body;
+  const items = await Product.find({name : name});
+  items[0].purchasingPrice.pop()
+  items[0].save()
+
+  const purchaseAddedArray = []
+  items.forEach(el=>{
+    if(el?.purchasingPrice[el?.purchasingPrice?.length-1]?.date === date){
+      purchaseAddedArray.push(el.name)
+    }
+  })
+
+  res.status(200).json({
+    status : 'success',
+    data : {
+      purchaseAddedArray
+    }
+  })
+}
 
 const combo = require('./../model/combo.model');
 
