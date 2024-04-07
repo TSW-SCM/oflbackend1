@@ -620,7 +620,7 @@ exports.PuttingComboToCart = async(req, res, next)=>{
     }
     const decode = await promisify(jwt.verify)(token, process.env.STRING)
     const findingUser = await SignUp.findById(decode.id)
-    const allCombo = await combo.find()
+    const allCombo = await Combo.find()
     const filterCombo = allCombo.filter(el=>{
         if(String(el._id)===id){
             return el
