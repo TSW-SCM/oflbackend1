@@ -7,6 +7,7 @@ const Razorpay = require('razorpay');
 const Product = require('./../model/product.model')
 const bcrypt = require('bcryptjs')
 const Complain = require('./../model/compain.model')
+const Combo = require('./../model/combo.model')
 
 exports.createAccount = async(req, res, next)=>{
     const {phone, password} = req.body;
@@ -606,8 +607,7 @@ exports.complain = async(req, res, next)=>{
 
 
 exports.PuttingComboToCart = async(req, res, next)=>{
-    const {list} = req.body;
-    const token =localStorage.getItem('b2cToken')
+    const {id,price,token} = req.body;
     if(token==='logout'){
         res.status(200).json({
             status : 'success',
@@ -620,7 +620,14 @@ exports.PuttingComboToCart = async(req, res, next)=>{
     }
     const decode = await promisify(jwt.verify)(token, process.env.STRING)
     const findingUser = await SignUp.findById(decode.id)
-    findingUser.combos.push({list})
+    const allCombo = await combo.find()
+    const filterCombo = allCombo.filter(el=>{
+        if(String(el._id)===id){
+            return el
+        }
+    })
+
+    findingUser.combos.push({list:filterCombo[0].comboProduct, price})
     findingUser.save()
     res.status(200).json({
         status : 'success',

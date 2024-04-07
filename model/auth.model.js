@@ -49,6 +49,10 @@ const signupSchema = new mongoose.Schema({
             type : Array
         }
         ,
+        price : {
+            type : String
+        }
+        ,
         date : {
             type : String,
             default : new Date().toLocaleDateString()
