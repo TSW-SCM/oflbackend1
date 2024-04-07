@@ -627,7 +627,7 @@ exports.PuttingComboToCart = async(req, res, next)=>{
         }
     })
 
-    findingUser.combos.push({list:filterCombo[0].comboProduct, price})
+    findingUser.combos.push({list:filterCombo[0].comboProduct, price, combo_id : id})
     findingUser.save()
 
     const comboIncart = findingUser.combos
@@ -652,7 +652,7 @@ exports.sendingAllCombosAlreadyInCartToUser = async(req, res, next)=>{
     const comboIncart = findingUser.combos
     const idOfCombosInCart = []
     comboIncart.forEach(el=>{
-        idOfCombosInCart.push(el._id)
+        idOfCombosInCart.push(el.combo_id)
     })
     res.status(200).json({
         status : 'success',

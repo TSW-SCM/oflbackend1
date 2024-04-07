@@ -53,6 +53,11 @@ const signupSchema = new mongoose.Schema({
             type : String
         }
         ,
+        combo_id : {
+            type : mongoose.Schema.ObjectId,
+            ref: 'Combo'
+        }
+        ,
         date : {
             type : String,
             default : new Date().toLocaleDateString()
