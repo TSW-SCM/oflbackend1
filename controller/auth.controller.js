@@ -629,10 +629,18 @@ exports.PuttingComboToCart = async(req, res, next)=>{
 
     findingUser.combos.push({list:filterCombo[0].comboProduct, price})
     findingUser.save()
+
+    const comboIncart = findingUser.combos
+    const idOfCombosInCart = []
+    comboIncart.forEach(el=>{
+        idOfCombosInCart.push(el._id)
+    })
+
     res.status(200).json({
         status : 'success',
         data : {
-            message : 'combo added'
+            message : 'combo added',
+            idOfCombosInCart
         }
     })
 }
