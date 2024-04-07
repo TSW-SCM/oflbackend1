@@ -12,6 +12,7 @@ router.route('/exist').post(auth.checkingAlreadyExistingAccount)
 router.route('/forgot').post(auth.forgotPassword)
 router.route('/add-to-cart').post(auth.cartPreperation)
 router.route('/combo-to-cart').post(auth.PuttingComboToCart)
+router.route('/sending-cart-combos').post(auth.sendingAllCombosAlreadyInCartToUser)
 router.route('/delete-all-cart').get(auth.deleteCompleteCart)
 router.route('/list-of-elements-in-cart').post(auth.sendingCartItemsOnlyWithoutCalculations)
 

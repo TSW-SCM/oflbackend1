@@ -645,6 +645,23 @@ exports.PuttingComboToCart = async(req, res, next)=>{
     })
 }
 
+exports.sendingAllCombosAlreadyInCartToUser = async(req, res, next)=>{
+    const {token} = req.body;
+    const decode = await promisify(jwt.verify)(token, process.env.STRING)
+    const findingUser = await SignUp.findById(decode.id)
+    const comboIncart = findingUser.combos
+    const idOfCombosInCart = []
+    comboIncart.forEach(el=>{
+        idOfCombosInCart.push(el._id)
+    })
+    res.status(200).json({
+        status : 'success',
+        data : {
+            idOfCombosInCart
+        }
+    })
+}
+
 exports.sendingUSerData = async(req, res, next)=>{
     const {token} =req.body
     if(token==='logout'){
