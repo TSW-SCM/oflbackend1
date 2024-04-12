@@ -31,44 +31,44 @@ exports.sendingAllvariety = async (req, res, next) => {
     };
     itemsSendableArray.push(obj);
   });
-  if (token==='logout') {
-    res.status(200).json({
-      status: "success",
-      data: {
-        nameArr: [],
-        items: items,
-      },
-    }); 
-    return;
-  }
-  const decode = await promisify(jwt.verify)(token, process.env.STRING);
-  const findingUser = await SignUp.findById(decode.id);
-  console.log(findingUser)
-  const cart = findingUser.cart;
-  let price = 0;
-  cart.forEach((el) => {
-    itemsSendableArray.forEach((item) => {
-      if (item.name === el.itemName) {
-        item.quantity = el.units;
-      }
-    });
-    price = Number(el.price.split("/-")[0] * el.units) + price;
-  });
+  // if (token==='logout') {
+  //   res.status(200).json({
+  //     status: "success",
+  //     data: {
+  //       nameArr: [],
+  //       items: items,
+  //     },
+  //   }); 
+  //   return;
+  // }
+  // const decode = await promisify(jwt.verify)(token, process.env.STRING);
+  // const findingUser = await SignUp.findById(decode.id);
+  // console.log(findingUser)
+  // const cart = findingUser.cart;
+  // let price = 0;
+  // cart.forEach((el) => {
+  //   itemsSendableArray.forEach((item) => {
+  //     if (item.name === el.itemName) {
+  //       item.quantity = el.units;
+  //     }
+  //   });
+  //   price = Number(el.price.split("/-")[0] * el.units) + price;
+  // });
 
-  const nameArr = [];
-  const nameAndQuantityArr = [];
-  findingUser.cart.forEach((el) => {
-    nameArr.push(el.itemName);
-    nameAndQuantityArr.push([el.itemName, el.units]);
-  });
+  // const nameArr = [];
+  // const nameAndQuantityArr = [];
+  // findingUser.cart.forEach((el) => {
+  //   nameArr.push(el.itemName);
+  //   nameAndQuantityArr.push([el.itemName, el.units]);
+  // });
 
   
   res.status(200).json({
     status: "success",
     data: {
-      nameArr,
-      price,
-      nameAndQuantityArr,
+      // nameArr,
+      // price,
+      // nameAndQuantityArr,
       items: itemsSendableArray,
     },
   });
