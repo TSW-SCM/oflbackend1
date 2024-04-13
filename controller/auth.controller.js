@@ -673,7 +673,7 @@ exports.sendingUSerData = async(req, res, next)=>{
     res.status(200).json({
         status : 'success',
         data : {
-            user : findingUser
+            user : [findingUser.address , findingUser.phone]
         }
     })
 }
