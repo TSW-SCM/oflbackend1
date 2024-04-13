@@ -479,24 +479,17 @@ exports.validatingPays = async(req, res, next)=>{
 
 
 exports.codAndPlacingOrder = async(req, res, next)=>{
-    const {token} = req.body
+    const {token,cart,subtotal,delivery,tax,platform} = req.body
     const decode = await promisify(jwt.verify)(token, process.env.STRING)
     const findingUser = await SignUp.findById(decode.id)
-    const cart = findingUser.cart
-    let grossprice = 0
-    cart.forEach(el=>{
-        grossprice = Number(grossprice) + Number(el.price.split('/-')[0]*el.units)
-    })
-    const delivery = 20;
-    const tax = 0;
-    const platform = 2;
-    const total = grossprice + delivery + grossprice*(tax/100) + platform
+    
+    const total = Number(subtotal) + delivery + Number(subtotal)*(tax/100) + platform
     
     findingUser.placed_orders.push({
         date : new Date().toLocaleDateString(),
         time : new Date().toLocaleTimeString(),
-        item_list : findingUser.cart,
-        subtotal : grossprice,
+        item_list : cart,
+        subtotal : subtotal,
         delivery : delivery,
         tax : tax,
         platform : platform,
@@ -515,7 +508,7 @@ exports.codAndPlacingOrder = async(req, res, next)=>{
     }) 
  
     
-    findingUser.cart = []
+    // findingUser.cart = []
     
     findingUser.save()
     res.status(200).json({
