@@ -678,6 +678,16 @@ exports.sendingUSerData = async(req, res, next)=>{
     })
 }
 
+exports.sendingAllCombos = async(req, res, next)=>{
+    const combos = await Combo.find()
+    res.status(200).json({
+        status : 'success',
+        data : {
+            allCombos : combos
+        }
+    })
+}
+
 exports.changeAddress = async(req, res, next)=>{
     const {address,token} = req.body;
     if(token==='logout'){
