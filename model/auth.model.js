@@ -69,6 +69,10 @@ const signupSchema = new mongoose.Schema({
             type : Array
         }
         ,
+        combos : {
+            type : Array
+        }
+        ,
         date : {
             type : String,
             default : new Date().toLocaleDateString()

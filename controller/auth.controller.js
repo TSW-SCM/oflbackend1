@@ -485,22 +485,12 @@ exports.codAndPlacingOrder = async(req, res, next)=>{
     
     const total = Number(subtotal) + delivery + Number(subtotal)*(tax/100) + platform
 
-    if(combo.length>0){
-        combo.forEach(el=>{
-            findingUser.combos.push({
-                list : el.comboProduct,
-                price : el.price,
-                combo_id : el._id,
-                date : date
-            })
-
-        })
-    }
     
     findingUser.placed_orders.push({
         date : new Date().toLocaleDateString(),
         time : new Date().toLocaleTimeString(),
         item_list : cart,
+        combos : combo,
         subtotal : subtotal,
         delivery : delivery,
         tax : tax,
