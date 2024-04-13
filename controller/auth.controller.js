@@ -479,11 +479,23 @@ exports.validatingPays = async(req, res, next)=>{
 
 
 exports.codAndPlacingOrder = async(req, res, next)=>{
-    const {token,cart,subtotal,delivery,tax,platform} = req.body
+    const {token,cart,subtotal,delivery,tax,platform, combo, date} = req.body
     const decode = await promisify(jwt.verify)(token, process.env.STRING)
     const findingUser = await SignUp.findById(decode.id)
     
     const total = Number(subtotal) + delivery + Number(subtotal)*(tax/100) + platform
+
+    if(combo.length>0){
+        combo.forEach(el=>{
+            findingUser.combos.push({
+                list : el.comboProduct,
+                price : el.price,
+                combo_id : el._id,
+                date : date
+            })
+
+        })
+    }
     
     findingUser.placed_orders.push({
         date : new Date().toLocaleDateString(),
