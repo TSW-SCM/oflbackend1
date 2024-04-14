@@ -10,7 +10,7 @@ const Complain = require('./../model/compain.model')
 const Combo = require('./../model/combo.model')
 
 exports.createAccount = async(req, res, next)=>{
-    const {phone, password} = req.body;
+    const {phone, password, address} = req.body;
     const checkingAlreadyExist = await SignUp.find({phone : phone})
     if(checkingAlreadyExist.length>0){
         res.status(200).json({
@@ -22,7 +22,7 @@ exports.createAccount = async(req, res, next)=>{
         return 
     }
     const passwordCrypted = await bcrypt.hash(password, 12)
-    const createAcc = await SignUp.create({phone, password : passwordCrypted})
+    const createAcc = await SignUp.create({phone, password : passwordCrypted, address})
     const token = await jwt.sign({id : createAcc._id},process.env.STRING)
     // localStorage.setItem('b2cToken', token)
 
