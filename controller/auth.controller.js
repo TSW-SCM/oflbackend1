@@ -513,10 +513,12 @@ exports.codAndPlacingOrder = async(req, res, next)=>{
     // findingUser.cart = []
     
     findingUser.save()
+    const allPlacedOrders = findingUser.placed_orders
     res.status(200).json({
         status : 'success',
         data : {
-            message : 'order placed sucessfully'
+            message : 'order placed sucessfully',
+            allPlacedOrders
         }
     })
 }
