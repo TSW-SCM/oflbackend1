@@ -30,6 +30,7 @@ router.route('/details').post(auth.sendingPlacedOrderDetails)
 router.route('/cancel-order').post(auth.cancelOrder)
 router.route('/refund-orders').post(auth.sendingRefundOrders)
 router.route('/sending-allCombos').get(auth.sendingAllCombos)
+router.route('/test').get(auth.OTPsendingTOWA)
 
 
 module.exports = router

@@ -36,6 +36,34 @@ exports.createAccount = async(req, res, next)=>{
     })
 }
 
+exports.OTPsendingTOWA = async(req, res, next)=>{
+    const OTP = Math.trunc(Math.random()*10000);
+
+    const url = 'https://hisocial.in/api/send';
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Specify content type as JSON
+          // You can include other headers here if needed
+        },
+        body: JSON.stringify({
+            "number": "919478181139",
+            "type": "text",
+            "message": `your OTP is ${OTP}`,
+            "instance_id": "66212463B5BF9",
+            "access_token": "66211b51ccaa3"
+          }) // Convert data to JSON string
+      };
+      fetch(url, options).then(data => {
+      })
+    res.status(200).json({
+        status: 'success',
+        data : {
+            message : OTP
+        }
+    })
+}
+
 exports.checkingAlreadyExistingAccount = async(req, res, next)=>{
     const {phone} = req.body;
     const checkingAlreadyExist = await SignUp.find({phone : phone})
