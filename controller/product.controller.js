@@ -114,9 +114,10 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     }
   });
 
+  console.log(listItems)
+
   let bulkunits = 0;
   const bulkData = [];
-
   nameOfProductsArr.forEach((el) => {
     
     listItems.forEach((item) => {
@@ -137,7 +138,6 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     }
   });
 
-  console.log(finalBulkData);
 
   res.status(200).json({
     status: "success",
@@ -149,11 +149,18 @@ exports.makingBulkOrderValues = async (req, res, next) => {
 
 
 exports.sendingAllPlacedOrders = async (req, res, next) => {
+  const {date} = req.body;
   const allOrders = await SignUp.find();
-  const placed_orders = [];
+  let placed_orders = [];
   allOrders.forEach((el) => {
     placed_orders.push(...el.placed_orders);
   });
+
+  placed_orders = placed_orders.filter(el=>{
+    if(el.date===date){
+      return el
+    }
+  })
 
   res.status(200).json({
     status: "success",
