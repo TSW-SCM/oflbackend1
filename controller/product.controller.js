@@ -180,6 +180,7 @@ exports.markingProductPackedAsDone = async (req, res, next) => {
   });
 
   const orders = filteressUser[0].placed_orders;
+  const editedOrder = []
 
   orders.forEach((el) => {
     console.log(String(el._id) === order_id);
@@ -187,6 +188,7 @@ exports.markingProductPackedAsDone = async (req, res, next) => {
     console.log(order_id);
 
     if (String(el._id) === order_id) {
+      editedOrder.push(el)
       el.packed = "packed";
     }
   });
@@ -203,6 +205,7 @@ exports.markingProductPackedAsDone = async (req, res, next) => {
     data: {
       message: "packed",
       placed_orders: placed_orders,
+      editedOrder
     },
   });
 };
