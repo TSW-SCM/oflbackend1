@@ -118,8 +118,9 @@ exports.makingBulkOrderValues = async (req, res, next) => {
   const bulkData = [];
 
   nameOfProductsArr.forEach((el) => {
+    
     listItems.forEach((item) => {
-      if (el.toLowerCase() === item.itemName.toLowerCase()) {
+      if (el.toLowerCase() === item.name.toLowerCase()) {
         bulkunits += Number(item.units);
       }
     });
