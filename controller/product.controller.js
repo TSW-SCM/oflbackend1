@@ -121,7 +121,7 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     
     listItems.forEach((item) => {
       if (el.toLowerCase() === item.name.toLowerCase()) {
-        bulkunits += Number(item.units);
+        bulkunits += Number(item.quantity);
       }
     });
     bulkData.push({
