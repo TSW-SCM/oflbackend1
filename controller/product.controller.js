@@ -220,13 +220,14 @@ exports.markingProductDeliveredAsDone = async (req, res, next) => {
   });
 
   const orders = filteressUser[0].placed_orders;
-
+  const editedOrder = []
   orders.forEach((el) => {
     console.log(String(el._id) === order_id);
     console.log(String(el._id));
     console.log(order_id);
 
     if (String(el._id) === order_id) {
+      editedOrder.push(el)
       el.delivered = "delivered";
     }
   });
@@ -243,6 +244,7 @@ exports.markingProductDeliveredAsDone = async (req, res, next) => {
     data: {
       message: "delivered",
       placed_orders: placed_orders,
+      editedOrder
     },
   });
 };
@@ -257,13 +259,14 @@ exports.markingProductCODAsDone = async (req, res, next) => {
   });
 
   const orders = filteressUser[0].placed_orders;
-
+  const editedOrder = []
   orders.forEach((el) => {
     console.log(String(el._id) === order_id);
     console.log(String(el._id));
     console.log(order_id);
 
     if (String(el._id) === order_id) {
+      editedOrder.push(el)
       el.payment_status = "success";
     }
   });
@@ -280,6 +283,7 @@ exports.markingProductCODAsDone = async (req, res, next) => {
     data: {
       message: "delivered",
       placed_orders: placed_orders,
+      editedOrder
     },
   });
 };
