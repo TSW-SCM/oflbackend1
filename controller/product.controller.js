@@ -20,7 +20,7 @@ exports.addingProduct = async (req, res, next) => {
 exports.sendingAllvariety = async (req, res, next) => {
   const items = await Product.find();
   const { token } = req.body;
-
+  const allCombos = await combo.find()
   const itemsSendableArray = [];
   items.forEach((el) => {
     const obj = {
@@ -70,6 +70,7 @@ exports.sendingAllvariety = async (req, res, next) => {
       // price,
       // nameAndQuantityArr,
       items: itemsSendableArray,
+      allCombos
     },
   });
 };
