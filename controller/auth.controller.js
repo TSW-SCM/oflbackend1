@@ -48,7 +48,7 @@ exports.OTPsendingTOWA = async(req, res, next)=>{
           // You can include other headers here if needed
         }, 
         body: JSON.stringify({
-            "number": `91${9478181139}`,
+            "number": `91${number}`,
             "type": "text", 
             "message": `your OTP is ${OTP}`,
             "instance_id": "66212463B5BF9",
