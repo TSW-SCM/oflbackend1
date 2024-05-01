@@ -37,6 +37,7 @@ exports.createAccount = async(req, res, next)=>{
 }
 
 exports.OTPsendingTOWA = async(req, res, next)=>{
+    const {number} = req.body
     const OTP = Math.trunc(Math.random()*10000);
 
     const url = 'https://hisocial.in/api/send';
@@ -47,7 +48,7 @@ exports.OTPsendingTOWA = async(req, res, next)=>{
           // You can include other headers here if needed
         },
         body: JSON.stringify({
-            "number": "919478181139",
+            "number": `91${number}`,
             "type": "text",
             "message": `your OTP is ${OTP}`,
             "instance_id": "66212463B5BF9",
