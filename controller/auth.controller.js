@@ -50,7 +50,7 @@ exports.OTPsendingTOWA = async(req, res, next)=>{
         body: JSON.stringify({
             "number": `91${number}`,
             "type": "text", 
-            "message": `your OTP is ${OTP}`,
+            "message": `Welcome to Orderfreshlife, your OTP is ${OTP}, don't share it with anyone.`,
             "instance_id": "66212463B5BF9",
             "access_token": "66211b51ccaa3"
           }) // Convert data to JSON string
