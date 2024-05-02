@@ -21,5 +21,6 @@ router.route('/add-combo').post(productController.makeCombo)
 router.route('/all-combos').get(productController.sendingAllCombosToAdmin)
 router.route('/activation-of-combos').post(productController.activationOfCombos)
 router.route('/delete-combo').post(productController.DeleteCombo)
+router.route('/save-prices').post(productController.savePriceList)
 
 module.exports = router 

@@ -520,3 +520,27 @@ exports.DeleteCombo = async(req, res, next)=>{
     }
   })
 }
+
+
+exports.savePriceList = async(req, res, next)=>{
+  const {list} = req.body;
+  const allProdcuts = await Product.find();
+  list.forEach(el=>{
+    allProdcuts.forEach(ele=>{
+      if(el.name === ele.name){
+        ele.price = Number(el.price)
+        ele.save()
+        return
+      }
+    })
+  })
+
+
+  res.status(200).json({
+    status : 'success',
+    data : {
+      message : 'updated done'
+    }
+  })
+
+}
