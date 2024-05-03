@@ -25,6 +25,8 @@ router.route('/placed_orders').post(auth.sendingPlacedOrder)
 router.route('/feedback').post(auth.feedback)
 router.route('/delete').post(auth.deletingCartItem)
 router.route('/complain').post(auth.complain)
+router.route('/complains-to-admin').get(auth.sendingAllComplainsToAdmin)
+
 router.route('/code').get(auth.code)
 router.route('/details').post(auth.sendingPlacedOrderDetails)
 router.route('/cancel-order').post(auth.cancelOrder)

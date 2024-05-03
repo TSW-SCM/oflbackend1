@@ -9,9 +9,17 @@ const complainSchema = new mongoose.Schema({
         type : String
     }
     ,
-    user : {
-        type : mongoose.Schema.ObjectId,
-        ref : 'SignUp'
+    username : {
+        type : String
+    }
+    ,
+    phone : {
+        type : String
+    }
+    ,
+    status : {
+        type : String,
+        default : 'open'
     }
 })
 

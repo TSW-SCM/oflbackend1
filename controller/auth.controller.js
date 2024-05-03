@@ -631,6 +631,21 @@ exports.complain = async(req, res, next)=>{
     })
 }
 
+exports.sendingAllComplainsToAdmin = async(req,res,next)=>{
+    const allComplain = await Complain.find()
+    let openIssues = allComplain.filter(el=>{
+        if(el.status === 'open'){
+            return el 
+        }
+    })
+    res.status(200).json({
+        status : 'success',
+        data : {
+            issues : openIssues
+        }
+    })  
+}
+
 
 exports.PuttingComboToCart = async(req, res, next)=>{
     const {id,price,token} = req.body;
