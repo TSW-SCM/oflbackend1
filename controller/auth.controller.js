@@ -26,6 +26,26 @@ exports.createAccount = async(req, res, next)=>{
     const token = await jwt.sign({id : createAcc._id},process.env.STRING)
     // localStorage.setItem('b2cToken', token)
 
+
+    const url = 'https://hisocial.in/api/send';
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Specify contdent type as JSON
+          // You can include other headers here if needed
+        }, 
+        body: JSON.stringify({
+            "number": `91${phone}`,
+            "type": "text", 
+            "message": `Welcome to Orderfreshlife, your account password is ${password}, don't share it with anyone.`,
+            "instance_id": "66212463B5BF9",
+            "access_token": "66211b51ccaa3"
+          }) // Convert data to JSON string
+      };
+      fetch(url, options).then(data => {
+      })
+
+
     res.status(200).json({
         status : 'success',
         data : {
