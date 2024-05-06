@@ -107,20 +107,29 @@ exports.makingBulkOrderValues = async (req, res, next) => {
   });
 
   const listItems = [];
+  const comboItems = [];
+
   allOrderArr.forEach((el) => {
     if(el.date === date && el.delivered!=='delivered'){
       listItems.push(...el.item_list);
+      comboItems.push(...el.combos);
+
     }else{
 
     }
   });
 
-  console.log(listItems)
+  const comboElements = []
+  comboItems.forEach(el=>{
+    comboElements.push(el.comboProduct)
+  })
+
 
   let bulkunits = 0;
+  let bulkunitsCombos = 0;
+
   const bulkData = [];
   nameOfProductsArr.forEach((el) => {
-    
     listItems.forEach((item) => {
       if (el.toLowerCase() === item.name.toLowerCase()) {
         bulkunits += Number(item.quantity);
@@ -133,6 +142,21 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     bulkunits = 0;
   });
 
+  const bulkDataCombo = [];
+  nameOfProductsArr.forEach((el) => {
+    comboElements.forEach((item) => {
+      if (el.toLowerCase() === item.name.toLowerCase()) {
+        bulkunitsCombos += Number(item.quantity);
+      }
+    });
+    bulkDataCombo.push({
+      name: el,
+      units: bulkunitsCombos,
+    });
+    bulkunitsCombos = 0;
+  });
+
+
   const finalBulkData = bulkData.filter((el) => {
     if (el.units != 0) {
       return el;
@@ -144,6 +168,7 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     status: "success",
     data: {
       finalBulkData,
+      bulkDataCombo
     },
   });
 };
