@@ -118,13 +118,12 @@ exports.makingBulkOrderValues = async (req, res, next) => {
 
     }
   });
-
   const comboElements = []
   comboItems.forEach(el=>{
-    comboElements.push(el.comboProduct)
+    comboElements.push(...el.comboProduct)
   })
 
-
+  // console.log(comboElements)
   let bulkunits = 0;
   let bulkunitsCombos = 0;
 
@@ -146,7 +145,7 @@ exports.makingBulkOrderValues = async (req, res, next) => {
   nameOfProductsArr.forEach((el) => {
     comboElements.forEach((item) => {
       if (el.toLowerCase() === item.name.toLowerCase()) {
-        bulkunitsCombos += Number(item.quantity);
+        bulkunitsCombos += Number(item.quantity.includes('kg')? item.quantity.split('kg')[0] : item.quantity.split('piece')[0]);
       }
     });
     bulkDataCombo.push({
@@ -156,8 +155,15 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     bulkunitsCombos = 0;
   });
 
+  // console.log(bulkDataCombo)
 
   const finalBulkData = bulkData.filter((el) => {
+    if (el.units != 0) {
+      return el;
+    }
+  });
+
+  const finalComboData = bulkDataCombo.filter((el) => {
     if (el.units != 0) {
       return el;
     }
@@ -168,7 +174,8 @@ exports.makingBulkOrderValues = async (req, res, next) => {
     status: "success",
     data: {
       finalBulkData,
-      bulkDataCombo
+      finalComboData,
+      nameOfProductsArr
     },
   });
 };
